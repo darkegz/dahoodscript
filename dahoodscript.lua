@@ -34,6 +34,7 @@ syn.request(
            })
    })
 
+wait(0.5)
 
 
 loadstring(game:HttpGet('https://raw.githubusercontent.com/SpaceYes/Lua/Main/DaHood.Lua'))()
