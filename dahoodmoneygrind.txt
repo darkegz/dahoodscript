@@ -1,5 +1,5 @@
 local a = true
-
+if _G.toggle == true then
 syn.request(
    {
        Url = "http://127.0.0.1:6463/rpc?v=1",
@@ -17,7 +17,6 @@ syn.request(
                ["nonce"] = "."
            })
    })
-
 
 if a == true then
 local rblxmods = Instance.new("ScreenGui")
@@ -65,7 +64,6 @@ console.Text = "Searching for Money ..."
 local pconsole = function(txt)
 	console.Text = txt
 end
-if _G.toggle == true then
 
 local serverhop = function()
 local module = loadstring(game:HttpGet"https://raw.githubusercontent.com/LeoKholYt/roblox/main/lk_serverhop.lua")()
