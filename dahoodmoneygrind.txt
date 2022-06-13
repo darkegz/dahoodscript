@@ -1,0 +1,177 @@
+_G.toggle = true
+_G.minmoneyamount = 3000
+
+local a = true
+if a == true then
+if _G.toggle == true then
+
+local serverhop = function()
+local module = loadstring(game:HttpGet"https://raw.githubusercontent.com/LeoKholYt/roblox/main/lk_serverhop.lua")()
+module:Teleport(game.PlaceId)
+end
+
+function antiSit()
+	if game.Players.LocalPlayer.Character.Humanoid:GetState() == Enum.HumanoidStateType.Seated then 
+		game.Players.LocalPlayer.Character.Humanoid.Jump = true
+	end
+end
+
+local tp = function(goal, offset)
+	local flytime = nil
+	if speed ~= nil then
+		flytime = speed
+	else
+		flytime = 2
+	end
+	ts = game:GetService("TweenService")
+	local hrp = game.Players.LocalPlayer.Character.HumanoidRootPart
+	local goal = goal
+
+	if offset then
+		ts:Create(hrp,TweenInfo.new(flytime),{["CFrame"]=CFrame.new(goal.Position - Vector3.new(0, 0, 0), goal.CFrame.LookVector)}):Play()
+	else
+		ts:Create(hrp,TweenInfo.new(flytime),{["CFrame"]=CFrame.new(goal.Position, goal.CFrame.LookVector)}):Play() 
+	end
+	char.HumanoidRootPart.CFrame = CFrame.new(hrp.Position, goal.Position)
+	return
+end
+
+local fireallclick = function()
+	for i,v in pairs(game:GetService("Workspace").Ignored.Drop:GetDescendants()) do
+		if v:IsA("ClickDetector") and v.Parent.Name == "MoneyDrop" then
+			local dis = (v.Parent.Position - hrp.Position).magnitude
+			if dis < 15 then
+				tp(v.Parent)
+				fireclickdetector(v)
+			end
+			wait(0.1)
+		end
+	end
+end
+
+local getcashier = function()
+	for i,v in pairs(game:GetService("Workspace").Cashiers:GetChildren()) do
+		if v.Humanoid.Health > 0 then
+			local dis = (v.Open.Position - hrp.Position).magnitude
+			return v
+		end
+	end
+end
+
+local target = nil
+local counter = 0
+local getmoneyfirst = false
+local closestcashcash = nil
+
+
+local collectallcashiers = function()
+	antiSit()
+
+	local counter = 0
+
+	for i,v in pairs(workspace:GetDescendants()) do
+		if v:IsA("ClickDetector") and v.Parent.Name == "MoneyDrop" then
+			local dis = (v.Parent.Position - hrp.Position).magnitude
+			if dis < 15 then
+				counter = counter + 1
+			end
+		end
+	end
+
+	if counter > 0 then
+		getmoneyfirst = true
+	else
+		getmoneyfirst = false
+	end
+
+	if getmoneyfirst == false then
+		if target == nil or target.Humanoid.Health < 0 and counter < 1 then
+			target = getcashier()
+		end
+		cam.CFrame = CFrame.new(char.Head.Position, target.Head.Position)
+		tp(target.Open, true)
+	end
+
+	if char:FindFirstChild("Combat") == nil then
+		plr.Backpack.Combat.Parent = char
+	end
+	if game.Players.LocalPlayer.Character:FindFirstChild("Combat") then
+		game.Players.LocalPlayer.Character.Combat:Activate()
+	end
+
+	fireallclick()
+	char.Humanoid.Sit = false
+end
+
+local getclosestcash = function()
+	local highest = math.huge
+	for i,v in pairs(workspace:GetDescendants()) do
+		if v:IsA("ClickDetector") and v.Parent.Name == "MoneyDrop" then
+			local dis = (v.Parent.Position - hrp.Position).magnitude
+			if dis < highest then
+				highest = dis
+				return v.Parent
+			end
+		end
+	end
+end
+
+local scavcash = function()
+	closestcashcash = getclosestcash()
+	if closestcashcash == nil then
+	elseif closestcashcash ~= nil then
+		local dis = (closestcashcash.Position - hrp.Position).magnitude
+		if dis < 1 then
+			wait(0.25)
+			closestcashcash.Position = Vector3.new(0, 0, 0)
+		end
+	end
+	tp(closestcashcash, true, 1)
+	fireallclick()
+end
+
+local waitabit = true
+
+while true do
+local suc, fail = pcall(function()
+antiSit()
+local small = 0
+local part = nil
+for i,v in pairs(game:GetService("Workspace").Ignored.Drop:GetChildren()) do
+    if v:FindFirstChild("BillboardGui") then
+        local txt = v:FindFirstChild("BillboardGui").TextLabel.Text
+        local string = txt:sub(2)
+        local str = string.gsub(string, ",", "")
+        local int = tonumber(str)
+        if int > _G.minmoneyamount then
+	if int > 3000 and waitabit == true then
+	warn("[RBLXMODS SCRAPER] -  Large Amount of Money Found.")
+	for i = 1, 20 do
+	    warn("[RBLXMODS SCRAPER] - Collecting in: "..tostring(21 - i).." Waiting for Client to Load")
+	    wait(1)
+	end
+	waitabit = false
+	end
+        if int > small then
+            small = int
+            part = v
+        end
+        end
+	end
+end
+if part == nil then
+	warn("[RBLXMODS SCRAPER] -  No Money Found, Searching on Another Server ...")
+    serverhop()
+else
+    warn("[RBLXMODS SCRAPER] -  Found Money: "..part:FindFirstChild("BillboardGui").TextLabel.Text.." - Collecting ...")
+end
+local dis = (part.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude
+if dis < 15 then
+fireclickdetector(part.ClickDetector)
+end
+tp(part)
+end)
+wait(1)
+end
+end
+end
