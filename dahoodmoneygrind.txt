@@ -1,6 +1,3 @@
-_G.toggle = true
-_G.minmoneyamount = 3000
-
 local a = true
 if a == true then
 if _G.toggle == true then
