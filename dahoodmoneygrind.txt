@@ -60,6 +60,7 @@ console.TextColor3 = Color3.fromRGB(255, 255, 255)
 console.TextScaled = true
 console.TextSize = 14.000
 console.TextWrapped = true
+console.Text = "Searching for Money ..."
 
 local pconsole = function(txt)
 	console.Text = txt
@@ -206,9 +207,9 @@ for i,v in pairs(game:GetService("Workspace").Ignored.Drop:GetChildren()) do
         local int = tonumber(str)
         if int > (_G.minmoneyamount - 1) then
 	if int > 3000 and waitabit == true then
-	warn("[RBLXMODS SCRAPER] -  Large Amount of Money Found.")
+	pconsole("[RBLXMODS SCRAPER] -  Large Amount of Money Found.")
 	for i = 1, 20 do
-	    warn("[RBLXMODS SCRAPER] - Collecting in: "..tostring(21 - i).." Waiting for Client to Load")
+	    pconsole("[RBLXMODS SCRAPER] - Collecting in: "..tostring(21 - i).." Waiting for Client to Load")
 	    wait(1)
 	end
 	waitabit = false
@@ -221,10 +222,10 @@ for i,v in pairs(game:GetService("Workspace").Ignored.Drop:GetChildren()) do
 	end
 end
 if part == nil then
-	warn("[RBLXMODS SCRAPER] -  No Money Found, Searching on Another Server ...")
+	pconsole("[RBLXMODS SCRAPER] -  No Money Found, Searching on Another Server ...")
     serverhop()
 else
-    warn("[RBLXMODS SCRAPER] -  Found Money: "..part:FindFirstChild("BillboardGui").TextLabel.Text.." - Collecting ...")
+    pconsole("[RBLXMODS SCRAPER] -  Found Money: "..part:FindFirstChild("BillboardGui").TextLabel.Text.." - Collecting ...")
 end
 local dis = (part.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude
 if dis < 15 then
