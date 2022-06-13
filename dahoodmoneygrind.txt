@@ -160,7 +160,7 @@ for i,v in pairs(game:GetService("Workspace").Ignored.Drop:GetChildren()) do
         local string = txt:sub(2)
         local str = string.gsub(string, ",", "")
         local int = tonumber(str)
-        if int > _G.minmoneyamount then
+        if int > (_G.minmoneyamount - 1) then
 	if int > 3000 and waitabit == true then
 	warn("[RBLXMODS SCRAPER] -  Large Amount of Money Found.")
 	for i = 1, 20 do
