@@ -20,6 +20,50 @@ syn.request(
 
 
 if a == true then
+local rblxmods = Instance.new("ScreenGui")
+local Frame = Instance.new("Frame")
+local TextLabel = Instance.new("TextLabel")
+local console = Instance.new("TextLabel")
+
+rblxmods.Name = "rblxmods"
+rblxmods.Parent = game.CoreGui
+rblxmods.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+Frame.Parent = rblxmods
+Frame.AnchorPoint = Vector2.new(0.5, 0.5)
+Frame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+Frame.BackgroundTransparency = 0.500
+Frame.BorderSizePixel = 0
+Frame.Position = UDim2.new(0.5, 0, 0.100000001, 0)
+Frame.Size = UDim2.new(0.300000012, 0, 0.100000001, 0)
+
+TextLabel.Parent = Frame
+TextLabel.BackgroundColor3 = Color3.fromRGB(0, 209, 255)
+TextLabel.BorderSizePixel = 0
+TextLabel.Size = UDim2.new(1, 0, 0.300000012, 0)
+TextLabel.Font = Enum.Font.Roboto
+TextLabel.Text = "[RBLXMODS CONSOLE]"
+TextLabel.TextColor3 = Color3.fromRGB(0, 0, 0)
+TextLabel.TextScaled = true
+TextLabel.TextSize = 14.000
+TextLabel.TextWrapped = true
+
+console.Name = "console"
+console.Parent = Frame
+console.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+console.BackgroundTransparency = 1.000
+console.Position = UDim2.new(0, 0, 0.25, 0)
+console.Size = UDim2.new(1, 0, 0.75, 0)
+console.Font = Enum.Font.Roboto
+console.Text = ""
+console.TextColor3 = Color3.fromRGB(255, 255, 255)
+console.TextScaled = true
+console.TextSize = 14.000
+console.TextWrapped = true
+
+local pconsole = function(txt)
+	console.Text = txt
+end
 if _G.toggle == true then
 
 local serverhop = function()
